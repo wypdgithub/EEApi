@@ -12,5 +12,6 @@ namespace EEApi.Context
         public MyContext() { }
         public MyContext(DbContextOptions<MyContext> options) : base(options) { }
         public DbSet<Emp> emps { get; set; }
+        public DbSet<Course> courses { get; set; }
     }
 }
