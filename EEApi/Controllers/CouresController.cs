@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using EEApi.Context;
 using EEApi.Model;
+using EEApi.Model.Teachers;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -63,7 +64,7 @@ namespace EEApi.Controllers
         public int Addcoutse(Course p)
         {
             string sql;
-            sql = $"insert into [Course] values('{p.Bian}','{p.Name}','{p.Image}','{p.State}','{p.Original}','{p.Discounts}','{DateTime.Now}','{p.Teacher}','0')";
+            sql = $"insert into [Course] values('{p.Bian}','{p.Name}','/Image/6.jpg','{p.State}','{p.Original}','{p.Discounts}','{DateTime.Now}','{p.Teacher}','0')";
             hr.Database.ExecuteSqlCommand(sql);
             return 1;
         }
@@ -134,11 +135,14 @@ namespace EEApi.Controllers
             hr.Database.ExecuteSqlCommand(sql);
             return 1;
         }
+        /// <summary>
+        /// 下拉讲师
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Course>>> Getteacher(string name = "")
+        public async Task<ActionResult<IEnumerable<Teacher>>> Getteacher()
         {
-            return await hr.courses.ToListAsync(); ;
+            return await hr.teachers.ToListAsync(); ;
         }
     }
 }
