@@ -27,6 +27,7 @@ namespace EEApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
             services.AddDbContext<MyContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("ConStr"));
@@ -39,6 +40,7 @@ namespace EEApi
                        .SetIsOriginAllowed(_ => true) // =AllowAnyOrigin()
                        .AllowCredentials();
                }));
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
