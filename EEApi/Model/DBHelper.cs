@@ -21,7 +21,8 @@ namespace DAL
         {
             if (conn == null)
             {
-                conn = new SqlConnection("Data Source=.;Initial Catalog=EE;Integrated Security=True");
+                //conn = new SqlConnection("Data Source=.;Initial Catalog=EE;Integrated Security=True");
+                conn = new SqlConnection("Server=10.3.158.4;Database =OEP;Uid = sa;Pwd=1234");
             }
         }
         /// <summary>

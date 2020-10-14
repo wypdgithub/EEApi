@@ -45,6 +45,7 @@ namespace EEApi.Controllers
             string sql = $"update Emp set EState=1 where Id={id}";
             return db.ExecuteNonQuery(sql);
         }
+        //添加
         [HttpPost]
         public int Add(Emp m)
         {
