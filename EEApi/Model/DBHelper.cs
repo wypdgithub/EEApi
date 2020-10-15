@@ -50,7 +50,7 @@ namespace DAL
                 }
                 return dt;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 if (conn.State == ConnectionState.Open)
                 {
@@ -88,7 +88,7 @@ namespace DAL
                 }
                 return com.ExecuteScalar();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 this.Close();
                 throw;
@@ -112,7 +112,7 @@ namespace DAL
                 }
                 return com.ExecuteNonQuery();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 this.Close();
                 throw;
