@@ -47,11 +47,11 @@ namespace EEApi.Controllers
         }
         //添加教师
         [HttpPost]
-        public int Add(int id)
+        public int Add(Teacher m)
         {
             try
             {
-                string sql = $"update Teacher set States=1 where Id={id}";
+                string sql = $"insert into Teacher values('{m.TeaName}','/Img/8.jpg','{m.organizationName}',0,'{DateTime.Now}',2,0)";
                 return db.ExecuteNonQuery(sql);
             }
             catch (Exception)
@@ -59,6 +59,36 @@ namespace EEApi.Controllers
 
                 throw;
             }
+        }
+        //编辑教师
+        [HttpPost]
+        public int UpdTeacher(Teacher m)
+        {
+            try
+            {
+                string sql = $"update Teacher set TeaName='{m.TeaName}',TeaImg='Img/7.jpg',organizationName='{m.organizationName}',UpdTime='{DateTime.Now}',CId=2,States=0 where Id={m.Id}";
+                return db.ExecuteNonQuery(sql);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        [HttpGet]
+        public List<Teacher> Find(int id)
+        {
+            try
+            {
+                string sql = $"select * from Teacher where Id={id}";
+                return db.GetToList<Teacher>(sql);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
         }
     }
 }
