@@ -2,15 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EEApi.Model
 {
-    [Table("Course")]
-    public class Course
+    public class CouseTea
     {
-        [Key]
         public int Id { get; set; }//编号
         public int Bian { get; set; }//课程编号
         public string Name { get; set; }//课程名称
@@ -21,5 +17,6 @@ namespace EEApi.Model
         public DateTime NewTime { get; set; }//更新时间
         public int Teacher { get; set; }//课程讲师
         public int Recycle { get; set; }//回收状态
+        public string TeaName { get; set; }//讲师名称
     }
 }
