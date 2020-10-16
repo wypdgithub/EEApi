@@ -19,4 +19,12 @@ namespace EEApi.Model.Teachers
         public int States { get; set; }
         public string CreateName { get; set; }
     }
+    public class Pages
+    {
+        public int AllCount { get; set; }
+        public int PageCount { get; set; }
+        public int PageIndex { get; set; }
+        public int PageSize { get; set; }
+        public List<VirtualTb> virtualTbs { get; set; }
+    }
 }

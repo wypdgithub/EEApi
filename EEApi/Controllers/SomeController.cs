@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using EEApi.Model;
 using EEApi.Context;
+using EEApi.Model.Teachers;
 
 namespace EEApi.Controllers
 {
@@ -26,15 +27,29 @@ namespace EEApi.Controllers
         //}
         //显示
         [HttpGet]
-        public List<Emp> Show(string Ename)
+        public List<Emp> Show(string Ename,int pageIndex,int pageSize)
         {
             string sql = "select * from Emp where EState=0";
             var list= db.GetToList<Emp>(sql);
-
+            if (pageIndex<1)
+            {
+                pageIndex = 1;
+            }
             if (!string.IsNullOrEmpty(Ename))
             {
                 list = list.Where(s => s.Name.Contains(Ename)).ToList();
             }
+            int count = list.Count;
+            if (count%pageSize==0)
+            {
+                count = count / pageSize;
+            }
+            if (count%pageSize!=0)
+            {
+                count = count / pageSize+1;
+            }
+           
+            
             return list;
 
         }
@@ -62,7 +77,7 @@ namespace EEApi.Controllers
         [HttpPost]
         public int UpdEmp(Emp m)
         {
-            string sql = $"update Emp set Name='{m.Name}' ,Age='{m.Age}' where Id={m.Id}";
+            string sql = $"update Emp set Name='{m.Name}',Age='{m.Age}' where Id={m.Id}";
             return db.ExecuteNonQuery(sql);
         }
     }
