@@ -17,12 +17,12 @@ namespace EEApi.Model.Teachers
         }
         [Key]
         public int Id { get; set; }
-        public string TeaName { get; set; }
-        public string TeaImg { get; set; }
-        public string organizationName { get; set; }
-        public int OrderBy { get; set; }
-        public DateTime UpdTime { get; set; }
-        public int CId { get; set; }
-        public int States { get; set; }
+        public string TeaName { get; set; }//教师名称
+        public string TeaImg { get; set; }//教师头像
+        public string organizationName { get; set; }//机构名称
+        public int OrderBy { get; set; }//排序号
+        public DateTime UpdTime { get; set; }//创建时间
+        public int CId { get; set; }//外键
+        public int States { get; set; }//删除状态
     }
 }
