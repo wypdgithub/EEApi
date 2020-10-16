@@ -27,9 +27,36 @@ namespace EEApi.Controllers
         /// </summary>
         /// <returns></returns>    
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Course>>> GetEmp(string name = "")
+        //public async Task<ActionResult<IEnumerable<Course>>> GetEmp(string name = "")
+        //{
+        //    var i = await hr.courses.Where(s=>s.Recycle==0).ToListAsync();
+        //    if (name != "")
+        //    {
+        //        i = i.Where(s => s.Name.Contains(name)).ToList();
+        //    }
+        //    i = i.OrderBy(s => s.Bian).ToList();
+
+        //    return i;
+        //}
+        public List<CouseTea> GetEmp(string name = "")
         {
-            var i = await hr.courses.Where(s=>s.Recycle==0).ToListAsync();
+            var i = (from u in hr.courses
+                     join t in hr.teachers on u.Teacher equals t.Id
+                     where u.Recycle == 0
+                     select new CouseTea
+                     {
+                         Id = u.Id,
+                         Bian = u.Bian,
+                         Name = u.Name,
+                         Image = u.Image,
+                         State = u.State,
+                         Original = u.Original,
+                         Discounts = u.Discounts,
+                         Teacher = u.Teacher,
+                         NewTime = u.NewTime,
+                         Recycle = u.Recycle,
+                         TeaName = t.TeaName
+                     }).ToList();
             if (name != "")
             {
                 i = i.Where(s => s.Name.Contains(name)).ToList();
@@ -43,9 +70,37 @@ namespace EEApi.Controllers
         /// </summary>
         /// <returns></returns>    
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Course>>> Getcouse(string name = "")
+        //public async Task<ActionResult<IEnumerable<Course>>> Getcouse(string name = "")
+        //{
+        //    var i = await hr.courses.Where(s => s.Recycle == 1).ToListAsync();
+        //    if (name != "")
+        //    {
+        //        i = i.Where(s => s.Name.Contains(name)).ToList();
+        //    }
+        //    i = i.OrderBy(s => s.Bian).ToList();
+
+        //    return i;
+        //}
+
+        public List<CouseTea> Getcouse(string name = "")
         {
-            var i = await hr.courses.Where(s => s.Recycle == 1).ToListAsync();
+            var i = (from u in hr.courses
+                     join t in hr.teachers on u.Teacher equals t.Id
+                     where u.Recycle == 1
+                     select new CouseTea
+                     {
+                         Id = u.Id,
+                         Bian = u.Bian,
+                         Name = u.Name,
+                         Image = u.Image,
+                         State = u.State,
+                         Original = u.Original,
+                         Discounts = u.Discounts,
+                         Teacher = u.Teacher,
+                         NewTime = u.NewTime,
+                         Recycle = u.Recycle,
+                         TeaName = t.TeaName
+                     }).ToList();
             if (name != "")
             {
                 i = i.Where(s => s.Name.Contains(name)).ToList();
