@@ -17,5 +17,6 @@ namespace EEApi.Context
         public DbSet<Teacher> teachers { get; set; }
         public DbSet<CreatePerson>  createPeople { get; set; }
         public DbSet<Login> Login { get; set; }
+        public DbSet<Pages> Pages { get; set; }
     }
 }

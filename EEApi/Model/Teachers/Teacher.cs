@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 
 namespace EEApi.Model.Teachers
 {
+   
     [Table("Teacher")]
+
     public class Teacher
     {
         //初始化
@@ -15,6 +17,7 @@ namespace EEApi.Model.Teachers
         {
             this.States = 0;
         }
+       
         [Key]
         public int Id { get; set; }
         public string TeaName { get; set; }//教师名称
@@ -25,4 +28,5 @@ namespace EEApi.Model.Teachers
         public int CId { get; set; }//外键
         public int States { get; set; }//删除状态
     }
+    
 }

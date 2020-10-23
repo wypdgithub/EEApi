@@ -16,12 +16,34 @@ namespace EEApi.Controllers
         DBHelper db = new DBHelper();
         //显示教师
         [HttpGet]
-        public List<VirtualTb> GetList()
+        public Pages GetList(string name,int pageSize=8,int pageIndex=1)
         {
             try
             {
                 string sql = $"select * from Teacher t join createPeople c on t.CId=c.Id where t.States=0";
-                return db.GetToList<VirtualTb>(sql);
+                var list= db.GetToList<VirtualTb>(sql);
+                if (!string.IsNullOrEmpty(name))
+                {
+                    list = list.Where(s => s.TeaName.Contains(name)).ToList();
+                }
+                list = list.OrderByDescending(s => s.Id).ToList();
+                int count = list.Count;
+                int pageCount=0;
+                if (pageCount % pageSize == 0)
+                {
+                    pageCount = count / pageSize;
+                }
+                if (pageCount % pageSize != 0)
+                {
+                    pageCount = count / pageSize + 1;
+                }
+                Pages p = new Pages();
+                p.virtualTbs = list.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+                p.PageIndex = pageIndex;
+                p.PageCount = pageCount;
+                p.PageSize = pageSize;
+                p.AllCount = count;
+                return p;
             }
             catch (Exception)
             {
@@ -51,7 +73,7 @@ namespace EEApi.Controllers
         {
             try
             {
-                string sql = $"insert into Teacher values('{m.TeaName}','/Img/8.jpg','{m.organizationName}',0,'{DateTime.Now}',2,0)";
+                string sql = $"insert into Teacher values('{m.TeaName}','/Img{m.TeaImg.Substring(11,7)}','{m.organizationName}',0,'{DateTime.Now}',2,0)";
                 return db.ExecuteNonQuery(sql);
             }
             catch (Exception)
@@ -66,7 +88,7 @@ namespace EEApi.Controllers
         {
             try
             {
-                string sql = $"update Teacher set TeaName='{m.TeaName}',TeaImg='Img/7.jpg',organizationName='{m.organizationName}',UpdTime='{DateTime.Now}',CId=2,States=0 where Id={m.Id}";
+                string sql = $"update Teacher set TeaName='{m.TeaName}',TeaImg='/Img/7.jpg',organizationName='{m.organizationName}',UpdTime='{DateTime.Now}',CId=2,States=0 where Id={m.Id}";
                 return db.ExecuteNonQuery(sql);
             }
             catch (Exception)
