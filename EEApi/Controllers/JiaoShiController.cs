@@ -8,6 +8,7 @@ using EEApi.Model.Teachers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using DAL;
 
 namespace EEApi.Controllers
 {
@@ -15,18 +16,29 @@ namespace EEApi.Controllers
     [ApiController]
     public class JiaoShiController : ControllerBase
     {
+        DBHelper db1 = new DBHelper();
         public MyContext db;
         public JiaoShiController(MyContext db) { this.db = db; }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Teacher>>> GetTeacher(string name)
+        public  List<VirtualTb> GetTeacher(string name)
         {
-            var list = await db.teachers.ToListAsync();
-            if (!string.IsNullOrEmpty(name))
+            //var list =  db.teachers.ToList();
+            string sql = $"select * from Teacher where 1=1 ";
+            if (!string.IsNullOrWhiteSpace(name))
             {
-                list = list.Where(x => x.TeaName.Contains(name)).ToList();
+                sql += $" and TeaName like '%{name}%'";
             }
-            return list.ToList();
+            var list = db1.GetToList<VirtualTb>(sql);
+            //if (!string.IsNullOrEmpty(name))
+            //{
+            //    list = list.Where(x => x.TeaName.Contains(name)).ToList();
+            //} 
+            //if (!string.IsNullOrWhiteSpace(TeaName))
+            //{
+            //    list = list.Where(s => s.TeaName.Equals(TeaName)).ToList();
+            //}
+            return list;
         }
 
         [HttpDelete]
